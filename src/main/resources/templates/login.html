@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f8fa;
+            color: #222;
+        }
+        header {
+            background: linear-gradient(90deg, #2563eb 60%, #4f8cff 100%);
+            color: white;
+            padding: 1.3rem 2rem;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        header h1 {
+            font-size: 1.6rem;
+            margin: 0;
+        }
+        main {
+            padding: 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 110px);
+        }
+        form {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 28px #e0e7ef;
+            max-width: 410px;
+            width: 100%;
+        }
+        form label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: #2563eb;
+        }
+        form input {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #b6c6e0;
+            border-radius: 6px;
+            font-size: 1.05rem;
+        }
+        form button {
+            width: 100%;
+            background: linear-gradient(90deg, #2563eb 60%, #4f8cff 100%);
+            color: white;
+            padding: 0.85rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.08rem;
+            margin-top: 1.2rem;
+            font-weight: 700;
+            transition: background 0.2s;
+        }
+        form button:hover {
+            background: linear-gradient(90deg, #1742a0 60%, #2563eb 100%);
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 1.3rem;
+        }
+        .register-link a {
+            color: #28a745;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .message {
+            color: #20b45b;
+            font-size: 0.98rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to the Learning System</h1>
+</header>
+<main>
+    <form th:action="@{/login}" method="post">
+        <div th:if="${param.logout}" class="message">You have successfully logged out!</div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" autocomplete="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+        <button type="submit">Login</button>
+        <div class="register-link">
+            <a th:href="@{/register}">Register</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

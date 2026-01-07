@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Questions</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fe; margin: 0;}
+        .container { max-width: 950px; margin: 3rem auto; background: #fff; border-radius: 16px; padding: 2.2rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2.1rem;}
+        .add-btn {
+            margin-bottom: 1.5rem;
+            background: #28a745;
+            color: #fff;
+            padding: 0.7rem 2rem;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 1.08rem;
+            font-weight: 600;
+            display: inline-block;
+            transition: background 0.18s;
+        }
+        .add-btn:hover { background: #218838; }
+        table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 1.08rem;}
+        th, td { padding: 1.1rem 1rem; text-align: left;}
+        th { background: #1646a0; color: #fff; font-weight: 600;}
+        tr:nth-child(even) { background: #f4f8ff; }
+        tr:nth-child(odd) { background: #eef3fb; }
+        .actions form { display:inline; }
+        .action-btn {
+            background: #2563eb;
+            color: #fff;
+            padding: 0.5rem 1.1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-right: 0.4rem;
+            text-decoration: none;
+        }
+        .action-btn.delete { background: #e53935; }
+        .action-btn.delete:hover { background: #b71c1c; }
+        .action-btn.edit:hover { background: #1742a0; }
+        .back-link { margin-top: 2rem; display: inline-block; color: #2563eb; text-decoration: none; font-size: 1.1rem;}
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>All Questions</h2>
+    <div>
+        <span style="font-size:1.02rem;color:#333;">To add a question, select a quiz:</span>
+        <select id="select-quiz" style="margin-left:1rem;padding:0.3rem 0.7rem;font-size:1rem;border-radius:6px;border:1px solid #b3c8f7;">
+            <option value="">-- Select quiz --</option>
+            <option th:each="q : ${questions}" th:if="${q.quiz != null}" th:value="${q.quiz.id}" th:text="${q.quiz.name}"></option>
+        </select>
+        <a id="add-question-link" href="#" class="add-btn" style="margin-left:1.2rem;pointer-events:none;opacity:0.6;">Add Question</a>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Question</th>
+            <th>Quiz</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="q, iter : ${questions}">
+            <td th:text="${iter.index+1}"></td>
+            <td th:text="${q.text}"></td>
+            <td th:text="${q.quiz != null ? q.quiz.name : 'N/A'}"></td>
+            <td class="actions">
+                <a th:if="${q.quiz != null}" th:href="@{|/teacher/quizzes/${q.quiz.id}/questions/${q.id}/edit|}" class="action-btn edit">Edit</a>
+                <form th:if="${q.quiz != null}" th:action="@{|/teacher/quizzes/${q.quiz.id}/questions/${q.id}/delete|}" method="post" style="display:inline;">
+                    <button type="submit" class="action-btn delete" onclick="return confirm('Are you sure to delete this question?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr th:if="${questions.size() == 0}">
+            <td colspan="4" style="text-align: center; color: #999;">No questions yet.</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/teacher/panel" class="back-link">← Back to dashboard</a>
+</div>
+<script>
+    const selectQuiz = document.getElementById('select-quiz');
+    const addBtn = document.getElementById('add-question-link');
+    selectQuiz.addEventListener('change', function() {
+        if (this.value) {
+            addBtn.href = '/teacher/quizzes/' + this.value + '/questions/new';
+            addBtn.style.pointerEvents = "auto";
+            addBtn.style.opacity = "1";
+        } else {
+            addBtn.href = '#';
+            addBtn.style.pointerEvents = "none";
+            addBtn.style.opacity = "0.6";
+        }
+    });
+</script>
+</body>
+</html>

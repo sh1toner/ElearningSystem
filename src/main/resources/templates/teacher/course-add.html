@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Course</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 480px; margin: 3rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2rem; font-weight: 700;}
+        form { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.1rem;}
+        label { font-weight: 600; color: #0d2f6f; margin-bottom: 0.2em;}
+        input { padding: 0.7rem 1.1rem; border-radius: 6px; border: 1px solid #b3c8f7; font-size: 1rem;}
+        button { background: #1646a0; color: #fff; border: none; font-size: 1.1rem; font-weight: 600; border-radius: 7px; padding: 0.9rem 0; margin-top: 1.1rem; transition: background .18s;}
+        button:hover { background: #0d2f6f; }
+        a.btn-back { margin-top: 2rem; display: block; background: #1646a0; color: #fff; padding: 0.7rem 2.2rem; border-radius: 7px; text-decoration: none; font-size: 1.1rem; text-align: center; transition: background 0.18s;}
+        a.btn-back:hover { background: #0d2f6f; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Add Course</h2>
+    <form th:action="@{/teacher/courses/add}" th:object="${course}" method="post">
+        <label>Course Name: <input type="text" th:field="*{name}" required></label>
+        <label>Description: <input type="text" th:field="*{description}" required></label>
+        <button type="submit">Add Course</button>
+    </form>
+    <a href="/teacher/courses" class="btn-back">← Back to courses</a>
+</div>
+</body>
+</html>

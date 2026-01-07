@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Quiz: ' + ${quiz.name}">Quiz</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 700px; margin: 2rem auto; background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2rem;}
+        .quiz-info { margin-bottom: 1.5em; }
+        .question { margin: 1.2em 0; padding: .6em; background: #f1f4fa; border-radius: 8px;}
+        .question-title { font-weight: 500; color: #2563eb;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${quiz.name}">Quiz</h2>
+    <div class="quiz-info">
+        <span th:text="'Module: ' + ${quiz.module.topic}"></span>
+    </div>
+    <div th:if="${#lists.isEmpty(questions)}">No questions in this quiz yet.</div>
+    <div th:each="question : ${questions}" class="question">
+        <div class="question-title" th:text="${question.text}"></div>
+
+    </div>
+</div>
+</body>
+</html>

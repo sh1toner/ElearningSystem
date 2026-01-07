@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Teacher Dashboard</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 630px; margin: 4rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h1 { color: #1646a0; text-align: center; font-size: 2.2rem;}
+        ul { list-style: none; padding: 0; }
+        li { margin: 1.3em 0; }
+        a {
+            display: block;
+            background: linear-gradient(90deg, #2563eb 70%, #1646a0 100%);
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.13rem;
+            letter-spacing: .03em;
+            box-shadow: 0 2px 8px #e0e7ef;
+            transition: background 0.15s, transform 0.13s;
+        }
+        a:hover { background: linear-gradient(90deg, #1742a0 80%, #2563eb 100%); transform: translateY(-2px) scale(1.03);}
+        .section-title {
+            color: #2563eb;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 2.1em 0 0.8em 0.2em;
+            letter-spacing: .03em;
+        }
+        .logout-btn {
+            background: #ef4444;
+            margin-top: 2.5rem;
+            font-size: 1.13rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            border: none;
+            outline: none;
+            transition: background 0.18s, transform 0.13s;
+        }
+        .logout-btn:hover { background: #991b1b; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Teacher Dashboard</h1>
+    <div>
+        <div class="section-title">Students</div>
+        <ul>
+            <li><a href="/teacher/students">View students</a></li>
+            <li><a href="/teacher/assign-module">Assign modules to students</a></li>
+            <li><a href="/teacher/assigned-modules">View assigned modules</a></li>
+        </ul>
+
+        <div class="section-title">Courses & Modules</div>
+        <ul>
+            <li><a href="/teacher/courses">View courses</a></li>
+            <li><a href="/teacher/courses/add">Add new course</a></li>
+            <li><a href="/teacher/modules">View modules</a></li>
+            <li><a href="/teacher/modules/add">Add new module</a></li>
+        </ul>
+
+        <div class="section-title">Quizzes</div>
+        <ul>
+            <li><a href="/teacher/quizzes">View all quizzes</a></li>
+            <li><a href="/teacher/quizzes/create">Add new quiz</a></li>
+            <li><a href="/teacher/quizzes/questions">View all questions</a></li>
+        </ul>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn" style="width: 100%;">Log out</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

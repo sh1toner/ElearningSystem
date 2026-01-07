@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Courses & Modules</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2rem;}
+        .course-block { margin-bottom: 2.5rem; border-bottom: 1px solid #e5e7ef; padding-bottom: 1.5rem;}
+        .course-title { font-size: 1.3rem; color: #2563eb; font-weight: 600; margin-bottom: 0.3rem;}
+        .course-desc  { color: #475569; margin-bottom: 0.5rem; }
+        .module-list  { margin-left: 1.2rem; }
+        .module-block { margin-bottom: 1.1rem; }
+        .module-title { font-size: 1.09rem; font-weight: 500; color: #0d2f6f;}
+        .quiz-list    { margin-left: 1.2rem; }
+        .quiz-link    { color: #06b6d4; text-decoration: none; font-weight: 500;}
+        .quiz-link:hover { text-decoration: underline; color: #1646a0;}
+        .empty-msg    { text-align: center; color: #838899; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Courses & Modules</h2>
+    <div th:if="${#maps.isEmpty(modulesByCourse)}" class="empty-msg">You have no assigned modules yet.</div>
+
+    <div th:each="entry : ${modulesByCourse}">
+        <div class="course-block">
+            <div class="course-title" th:text="${entry.key.name}"></div>
+            <div class="course-desc" th:text="${entry.key.description}"></div>
+            <div class="module-list">
+                <div th:each="module : ${entry.value}" class="module-block">
+                    <div class="module-title" th:text="${module.topic}"></div>
+                    <div class="module-desc" th:text="${module.description}"></div>
+                    <div th:if="${quizzesByModule[module.id] != null and #lists.size(quizzesByModule[module.id]) > 0}">
+                        <div class="quiz-list">
+                            <span style="font-size:0.97em; color:#64748b;">Quizzes:</span>
+                            <ul style="margin:0.3em 0 0 1.1em;">
+                                <li th:each="quiz : ${quizzesByModule[module.id]}">
+                                    <a th:href="@{'/student/quizzes/' + ${quiz.id}}" th:text="${quiz.name}" class="quiz-link"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div th:if="${quizzesByModule[module.id] == null or #lists.isEmpty(quizzesByModule[module.id])}">
+                        <span style="color:#bdbdbd; font-size:0.96em;">No quizzes available.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Modules</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2rem;}
+        .module-block { margin-bottom: 1.1rem; }
+        .module-title { font-size: 1.09rem; font-weight: 500; color: #0d2f6f;}
+        .module-desc  { color: #475569; margin-bottom: 0.5rem; }
+        .empty-msg    { text-align: center; color: #838899; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Modules</h2>
+    <div th:if="${#lists.isEmpty(modules)}" class="empty-msg">You have no assigned modules yet.</div>
+    <div th:each="module : ${modules}" class="module-block">
+        <div class="module-title" th:text="${module.topic}"></div>
+        <div class="module-desc" th:text="${module.description}"></div>
+        <div style="color:#a6a6b3;font-size:0.95em;" th:text="'Course: ' + ${module.course != null ? module.course.name : 'Unknown'}"></div>
+    </div>
+</div>
+</body>
+</html>

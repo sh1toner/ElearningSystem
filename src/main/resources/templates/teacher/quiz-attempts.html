@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Attempts</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 900px; margin: 3rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2.1rem;}
+        table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 1.08rem;}
+        th, td { border: none; padding: 1.2rem 1rem; text-align: left;}
+        th { background: #1646a0; color: #fff; font-weight: 600;}
+        tr:nth-child(even) { background: #f4f8ff; }
+        tr:nth-child(odd) { background: #eef3fb; }
+        a.btn-back { margin-top: 2rem; display: block; background: #1646a0; color: #fff; padding: 0.7rem 2.2rem; border-radius: 7px; text-decoration: none; font-size: 1.1rem; text-align: center; transition: background 0.18s;}
+        a.btn-back:hover { background: #0d2f6f; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Quiz Attempts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Quiz</th>
+            <th>Score</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="attempt : ${attempts}">
+            <td th:text="${attempt.user.username}"></td>
+            <td th:text="${attempt.quiz.name}"></td>
+            <td th:text="${attempt.score}"></td>
+            <td th:text="${#dates.format(attempt.attemptDate, 'yyyy-MM-dd HH:mm')}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/teacher/panel" class="btn-back">← Back to dashboard</a>
+</div>
+</body>
+</html>

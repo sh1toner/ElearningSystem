@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f8fa;
+            color: #222;
+        }
+        header {
+            background: linear-gradient(90deg, #2563eb 60%, #4f8cff 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+        header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        nav a {
+            margin: 0 0.5rem;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        nav a:hover {
+            background: #1742a0;
+        }
+        main {
+            padding: 2.5rem;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #2563eb;
+            font-size: 2rem;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.7rem;
+        }
+        ul li {
+            background: #fff;
+            border: 1px solid #e0e7ef;
+            border-radius: 12px;
+            padding: 1.7rem;
+            box-shadow: 0 4px 14px #e6eeff;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        ul li:hover {
+            transform: scale(1.025);
+            box-shadow: 0 8px 22px #d6e8ff;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+        ul li p {
+            color: #485466;
+            margin-top: 0.7rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.1rem;
+            background-color: #f1f4fa;
+            color: #888;
+            margin-top: 2.5rem;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav a {
+                margin: 0.5rem 0;
+            }
+            ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Courses List</h1>
+    <nav>
+        <a href="/login">Logout</a>
+    </nav>
+</header>
+<main>
+    <h2>Available Courses</h2>
+    <ul>
+        <li th:each="course : ${courses}">
+            <a th:href="@{/courses/{id}(id=${course.id})}" th:text="${course.name}"></a>
+            <p th:text="${course.description}"></p>
+        </li>
+    </ul>
+</main>
+<footer>
+    &copy; 2025 E-Learning Platform. All rights reserved.
+</footer>
+</body>
+</html>

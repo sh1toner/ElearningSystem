@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Quizzes</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 800px; margin: 2rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2rem;}
+        .quiz-block { margin-bottom: 1.1rem; }
+        .quiz-title { font-size: 1.09rem; font-weight: 500; color: #0d2f6f;}
+        .quiz-module { color: #7a869a; font-size: 0.96em;}
+        .empty-msg    { text-align: center; color: #838899; margin-top: 3rem; }
+        a.quiz-link { color: #06b6d4; text-decoration: none; font-weight: 500;}
+        a.quiz-link:hover { text-decoration: underline; color: #1646a0;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>My Quizzes</h2>
+    <div th:if="${#lists.isEmpty(quizzes)}" class="empty-msg">You have no available quizzes yet.</div>
+    <div th:each="quiz : ${quizzes}" class="quiz-block">
+        <div class="quiz-title">
+            <a th:href="@{'/student/quizzes/' + ${quiz.id}}" th:text="${quiz.name}" class="quiz-link"></a>
+        </div>
+        <div class="quiz-module" th:text="'Module: ' + (${quiz.module != null ? quiz.module.topic : 'Unknown'})"></div>
+    </div>
+</div>
+</body>
+</html>

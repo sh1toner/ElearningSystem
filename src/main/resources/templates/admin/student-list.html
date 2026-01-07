@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+    <style>
+        body { background: #f6fbff; font-family: 'Segoe UI', Arial, sans-serif;}
+        .container { max-width: 900px; margin: 3rem auto; background: #fff; border-radius: 16px; padding: 3rem; box-shadow: 0 6px 30px #d2e2fa;}
+        h1 { color: #2563eb; font-size: 2rem; font-weight: 700;}
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 2rem;
+            background: linear-gradient(90deg, #2563eb 60%, #4f8cff 100%);
+            color: #fff;
+            border-radius: 7px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            font-size: 1.08rem;
+            transition: background 0.15s;
+        }
+        .btn:hover { background: linear-gradient(90deg, #1742a0 60%, #2563eb 100%);}
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fafdff;}
+        th, td { padding: 1.1rem 0.7rem; text-align: left; border-bottom: 1px solid #e7ebf0;}
+        th { background: #e3f0ff; color: #2563eb; font-weight: 700;}
+        tr:hover { background: #f2f7fb;}
+        .actions a { margin-right: 1.2rem; color: #2563eb; text-decoration: underline; font-weight: 600;}
+        .actions a.delete { color: #d43030; }
+        .back-link { color: #aaa; font-size: 1.04em; text-decoration: none;}
+        .back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Students</h1>
+    <a class="btn" href="/admin/students/new">Add Student</a>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.username}">Username</td>
+            <td th:text="${student.email}">Email</td>
+            <td class="actions">
+                <a th:href="@{|/admin/students/${student.id}/edit|}">Edit</a>
+                <a th:href="@{|/admin/students/${student.id}/delete|}" class="delete"
+                   onclick="return confirm('Delete this student?');">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <a class="back-link" href="/admin">← Back to Admin Panel</a>
+</div>
+</body>
+</html>

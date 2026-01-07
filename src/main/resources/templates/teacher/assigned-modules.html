@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Assigned Modules</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f3f6fd; margin: 0;}
+        .container { max-width: 900px; margin: 3rem auto; background: #fff; border-radius: 16px; padding: 2.5rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2.1rem;}
+        table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 1.08rem;}
+        th, td { border: none; padding: 1.2rem 1rem; text-align: left;}
+        th { background: #1646a0; color: #fff; font-weight: 600;}
+        tr:nth-child(even) { background: #f4f8ff; }
+        tr:nth-child(odd) { background: #eef3fb; }
+        .action-btn {
+            background: #e53935;
+            color: #fff;
+            padding: 0.5rem 1.1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .action-btn:hover { background: #b71c1c; }
+        a.btn-back { margin-top: 2rem; display: block; background: #1646a0; color: #fff; padding: 0.7rem 2.2rem; border-radius: 7px; text-decoration: none; font-size: 1.1rem; text-align: center; transition: background 0.18s;}
+        a.btn-back:hover { background: #0d2f6f; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Assigned Modules</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Student</th>
+            <th>Module</th>
+            <th>Course</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sm : ${assignedModules}">
+            <td th:text="${sm.student != null ? sm.student.username : 'N/A'}"></td>
+            <td th:text="${sm.module != null ? sm.module.topic : 'N/A'}"></td>
+            <td th:text="${sm.module != null && sm.module.course != null ? sm.module.course.name : 'N/A'}"></td>
+            <td>
+                <form th:action="@{'/teacher/assigned-modules/delete/' + ${sm.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="action-btn" onclick="return confirm('Are you sure you want to unassign this module from the student?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/teacher/panel" class="btn-back">← Back to dashboard</a>
+</div>
+</body>
+</html>

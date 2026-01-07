@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${question.id == null ? 'Add Question' : 'Edit Question'}">Question Form</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; background: #f5f7fe; margin: 0;}
+        .container { max-width: 480px; margin: 3rem auto; background: #fff; border-radius: 16px; padding: 2.3rem; box-shadow: 0 8px 32px #b7c8f7;}
+        h2 { color: #1646a0; text-align: center; font-size: 2rem; font-weight: 700;}
+        form { margin-top: 2.2rem; display: flex; flex-direction: column; gap: 1.3rem;}
+        label { font-weight: 600; color: #0d2f6f; margin-bottom: 0.3em;}
+        textarea { padding: 0.7rem 1.1rem; border-radius: 6px; border: 1px solid #b3c8f7; font-size: 1rem; min-height: 80px;}
+        button { background: #1646a0; color: #fff; border: none; font-size: 1.1rem; font-weight: 600; border-radius: 7px; padding: 0.9rem 0; margin-top: 1rem; transition: background .18s; }
+        button:hover { background: #0d2f6f; }
+        a.back-link { margin-top: 2rem; display: block; color: #2563eb; text-decoration: none; font-size: 1.1rem;}
+        a.back-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 th:text="${question.id == null ? 'Add Question' : 'Edit Question'}"></h2>
+    <form th:action="@{${question.id == null} ? '/teacher/quizzes/' + ${quiz.id} + '/questions' : '/teacher/quizzes/' + ${quiz.id} + '/questions/' + ${question.id} + '/edit'}"
+          method="post" th:object="${question}">
+        <label for="text">Question text:</label>
+        <textarea id="text" th:field="*{text}" required></textarea>
+        <button type="submit" th:text="${question.id == null ? 'Add' : 'Save'}"></button>
+    </form>
+    <a th:href="@{|/teacher/quizzes/${quiz.id}/questions|}" class="back-link">← Back to questions</a>
+</div>
+</body>
+</html>
